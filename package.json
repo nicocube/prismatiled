@@ -1,0 +1,24 @@
+{
+    "author": "Nicolas Lochet",
+    "name": "prismatiled",
+    "description": "A non-realistic but relly simple map server",
+    "version": "0.0.0",
+    "homepage": "https://github.com/nicocube/prismatiled",
+    "repository": {
+    "type": "git",
+        "url": "git://github.com/nicocube/prismatiled.git"
+    },
+    "main": "lib/prismatiled.js",
+    "scripts": {
+        "test": "node_modules/jasmine-node/bin/jasmine-node spec/",
+        "start": "node_modules/jasmine-node/bin/jasmine-node --autotest --watch lib/ --test-dir spec/"
+    },
+    "engines": {
+        "node": "*"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "jasmine-node": "*"
+    },
+    "optionalDependencies": {}
+}
