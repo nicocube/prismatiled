@@ -10,40 +10,11 @@
  */
 
 "use strict"
-var tilemap = require(__dirname + '/../lib/tilemap.js')
 
-describe("Define centered map:", function() {
-    
-    var map = tilemap({
-        coord : "centered",
-        map : [
-            ['tl','a','w','w','tr'],
-            ['w','w','c','w','w'],
-            ['bl','b','w','w','br']
-        ]
-    })
-    
-    it("check height", function() { expect(map.height()).toEqual(3) })
-    it("check width", function() { expect(map.width()).toEqual(5) })
+var c=0
+function fake_uuid() {return 'fake_'+(++c)}
 
-    it("check tile by coord center", function() { expect(map.at(0,0)).toEqual('c') })
-    
-    it("check tile by coord west", function() { expect(map.at(0,-2)).toEqual('w') })
-    it("check tile by coord east", function() { expect(map.at(0,2)).toEqual('w') })
-    it("check tile by coord north", function() { expect(map.at(1,0)).toEqual('w') })
-    it("check tile by coord south", function() { expect(map.at(-1,0)).toEqual('w') })
-    it("check tile by coord north-west", function() { expect(map.at(1,-2)).toEqual('tl') })
-    it("check tile by coord north-east", function() { expect(map.at(1,2)).toEqual('tr') })
-    it("check tile by coord south-west", function() { expect(map.at(-1,-2)).toEqual('bl') })
-    it("check tile by coord south-east", function() { expect(map.at(-1,2)).toEqual('br') })
-    
-    it("check sub center - dim horizontal", function() { expect(map.sub({center:[0,-1], dim: [1,3]})).toEqual([['w','w','c']]) })
-    it("check sub center - dim vertical", function() { expect(map.sub({center:[0,-1], dim: [3,1]})).toEqual([['a'],['w'],['b']]) })
-    it("check sub topleft - dim horizontal", function() { expect(map.sub({tl:[0,-2], dim: [1,3]})).toEqual([['w','w','c']]) })
-    it("check sub topleft - dim vertical", function() { expect(map.sub({tl:[1,-1], dim: [3,1]})).toEqual([['a'],['w'],['b']]) })
-    it("check sub topleft - bottomright horizontal", function() { expect(map.sub({tl:[0,-2], br: [0,0]})).toEqual([['w','w','c']]) })
-    it("check sub topleft - bottomright vertical", function() { expect(map.sub({tl:[1,-1], br: [-1,-1]})).toEqual([['a'],['w'],['b']]) })
-})
+var tilemap = require(__dirname + '/../lib/tilemap.js')(fake_uuid)
 
 describe("Define topleft map", function() {
     
