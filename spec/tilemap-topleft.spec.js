@@ -27,8 +27,8 @@ describe("Define topleft map", function() {
         ]
     })
     
-    it("check height", function() { expect(map.height()).toEqual(3) })
-    it("check width", function() { expect(map.width()).toEqual(5) })
+    it("check height", function() { expect(map.height).toEqual(3) })
+    it("check width", function() { expect(map.width).toEqual(5) })
     it("check tile by coord 0,0", function() { expect(map.at(0,0)).toEqual('tl') })
     it("check tile by coord 1,2", function() { expect(map.at(1,2)).toEqual('c') })
     it("check tile by coord 0,4", function() { expect(map.at(0,4)).toEqual('tr') })

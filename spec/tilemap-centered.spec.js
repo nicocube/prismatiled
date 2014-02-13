@@ -44,6 +44,14 @@ function common_centered_bounded(map) {
     it("map is defined", function() { expect(map).toBeDefined() })
     describe("common centered suite", common_centered(map))
     describe("centered bounded suite", function() {
+        it("check north of 1,0", function() { expect(function() { map.northOf(1,0) }).toThrow() })
+        it("check south of -1,0", function() { expect(function() { map.southOf(-1,0) }).toThrow() })
+
+        it("check east of 0,2", function() { expect(function() { map.eastOf(0,2) }).toThrow() })
+        it("check east of -1,2", function() { expect(function() { map.eastOf(-1,2) }).toThrow() })
+        
+        it("check west of 0,-2", function() { expect(function() { map.westOf(0,-2) }).toThrow() })
+        it("check west of 1,-2", function() { expect(function() { map.westOf(1,-2) }).toThrow() })
         
     })
 }
@@ -62,14 +70,32 @@ describe("Define centered cylinder map:", function() {
     describe("common centered suite", common_centered(map))
     
     describe("centered cylinder suite", function() {
+        it("check north of 1,0", function() { expect(function() { map.northOf(1,0) }).toThrow() })
+        it("check south of -1,0", function() { expect(function() { map.southOf(-1,0) }).toThrow() })
         
+        it("check east of 0,2", function() { expect(map.modLng(3)).toEqual(-2) })
+        it("check east of 0,2", function() { expect(map.modLng(9)).toEqual(-1) })
+        it("check east of 0,2", function() { expect(map.modLng(12)).toEqual(2) })
+        it("check east of 0,2", function() { expect(map.modLng(42)).toEqual(2) })
+        it("check east of 0,2", function() { expect(map.modLng(666)).toEqual(1) })
+        
+        it("check east of 0,2", function() { expect(map.modLng(-3)).toEqual(2) })
+        it("check east of 0,2", function() { expect(map.modLng(-7)).toEqual(-2) })
+        it("check east of 0,2", function() { expect(map.modLng(-8)).toEqual(2) })
+        it("check east of 0,2", function() { expect(map.modLng(-10)).toEqual(0) })
+        
+        it("check east of 0,2", function() { expect(map.eastOf(0,2)).toEqual({_:'w', lat:0, lng:-2}) })
+        it("check east of -1,2", function() { expect(map.eastOf(-1,2)).toEqual({_:'bl', lat:-1, lng:-2}) })
+        
+        it("check west of 0,-2", function() { expect(map.westOf(0,-2)).toEqual({_:'w', lat:0, lng:2}) })
+        it("check west of 1,-2", function() { expect(map.westOf(1,-2)).toEqual({_:'tr', lat:1, lng:2}) })
     })
 })
 function common_centered(map) {    
     it("map is defined", function() { expect(map).toBeDefined() })
     return function () {
-        it("check height", function() { expect(map.height()).toEqual(3) })
-        it("check width", function() { expect(map.width()).toEqual(5) })
+        it("check height", function() { expect(map.height).toEqual(3) })
+        it("check width", function() { expect(map.width).toEqual(5) })
 
         it("check tile by coord center", function() { expect(map.at(0,0)).toEqual('c') })
         
@@ -88,5 +114,10 @@ function common_centered(map) {
         it("check sub topleft - dim vertical", function() { expect(map.sub({tl:[1,-1], dim: [3,1]})).toEqual(tilemap({coord : "centered", morph : "part", parent : 'fake_1', map : [['a'],['w'],['b']] })) })
         it("check sub topleft - bottomright horizontal", function() { expect(map.sub({tl:[0,-2], br: [0,0]})).toEqual(tilemap({coord : "centered", morph : "part", parent : 'fake_1', map : [['w','w','c']] })) })
         it("check sub topleft - bottomright vertical", function() { expect(map.sub({tl:[1,-1], br: [-1,-1]})).toEqual(tilemap({coord : "centered", morph : "part", parent : 'fake_1', map : [['a'],['w'],['b']] })) })
+        
+        it("check north of 0,0", function() { expect(map.northOf(0,0)).toEqual({_:'w', lat:1, lng:0}) })
+        it("check east of 0,0", function() { expect(map.eastOf(0,0)).toEqual({_:'w', lat:0, lng:1}) })
+        it("check south of 0,0", function() { expect(map.southOf(0,0)).toEqual({_:'w', lat:-1, lng:0}) })
+        it("check west of 0,0", function() { expect(map.westOf(0,0)).toEqual({_:'w', lat:0, lng:-1}) })
     }
 }
