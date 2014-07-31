@@ -89,6 +89,8 @@ describe("Define centered cylinder map:", function() {
         
         it("check west of 0,-2", function() { expect(map.westOf(0,-2)).toEqual({_:'w', lat:0, lng:2}) })
         it("check west of 1,-2", function() { expect(map.westOf(1,-2)).toEqual({_:'tr', lat:1, lng:2}) })
+        
+        it("check sub cross border midright to bottomleft - square", function() { expect(map.sub({tl:[0,2], br: [-1,-2]})).toEqual(tilemap({coord : "centered", morph : "part", parent : 'fake_1', map : [['w','w'],['br','bl']] })) })
     })
 })
 function common_centered(map) {    
