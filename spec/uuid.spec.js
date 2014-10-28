@@ -10,7 +10,7 @@
  */
 
 "use strict"
-var uuid = require(__dirname + '/../lib/uuid.js')('plop',function () {return 1392129660000})
+var uuid = require(__dirname + '/../lib/uuid.js')()('plop',function () {return 1392129660000})
 
 describe("uuid generator", function () {
 
