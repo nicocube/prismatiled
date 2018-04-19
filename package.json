@@ -1,26 +1,38 @@
 {
-    "author": "Nicolas Lochet",
-    "name": "prismatiled",
-    "description": "A non-realistic but relly simple map server",
-    "version": "0.0.0",
-    "homepage": "https://github.com/nicocube/prismatiled",
-    "repository": {
+  "name": "prismatiled",
+  "version": "0.0.0",
+  "description": "A non-realistic but really simple tiled map library",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "tape test/**/*.spec.js |tap-summary --no-progress",
+    "autotest": "nodemon -e js,yml -x 'tape test/**/*.spec.js |tap-summary --no-progress'",
+    "autolinttest": "nodemon -e js,yml -x 'npm run lint && tape test/**/*.spec.js |tap-summary --no-progress'",
+    "coverage": "istanbul cover tape test/**/*.spec.js",
+    "lint": "eslint index.js lib/ test/",
+    "autolint": "nodemon -x eslint index.js lib/ test/",
+    "preversion": "npm test"
+  },
+  "repository": {
     "type": "git",
-        "url": "git://github.com/nicocube/prismatiled.git"
-    },
-    "main": "lib/prismatiled.js",
-    "scripts": {
-        "test": "jasmine",
-        "autotest": "nodemon node_modules/jasmine/bin/jasmine.js",
-        "coverage": "istanbul cover jasmine"
-    },
-    "engines": {
-        "node": "*"
-    },
-    "dependencies": {},
-    "devDependencies": {
-        "jasmine": "^2.1.0",
-        "istanbul": "~0.3.11"
-    },
-    "optionalDependencies": {}
+    "url": "git+https://github.com/nicocube/prismatiled.git"
+  },
+  "keywords": [
+    "tile",
+    "map"
+  ],
+  "author": "Nicolas Lochet",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nicocube/prismatiled/issues"
+  },
+  "homepage": "https://github.com/nicocube/prismatiled#readme",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "nodemon": "^1.17.2",
+    "tap-summary": "^3.0.2",
+    "tape": "^4.9.0"
+  },
+  "dependencies": {}
 }
