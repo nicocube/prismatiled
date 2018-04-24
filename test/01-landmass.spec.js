@@ -15,13 +15,14 @@ var test = require('tape')
   , LandMass = require(__dirname + '/../lib/landmass.js')
   , LandType = require(__dirname + '/../lib/landtype.js')
 
-test('create one landmass', function(t) {
+test('parse VS create one landmass', function(t) {
 
-  let parsed = LandMass.parse(LandType.buildMap([
+  let landtypes = LandType.buildMap([
       LandType.build({k:'-', name:'sea', pos: false, min: -3, max: 0}),
       LandType.build({k:'s', name:'shore'}),
       LandType.build({k:'f', name:'forest', min: 1, max: 3})
-    ]),`
+    ])
+    , parsed = LandMass.parse(landtypes,`
     . . . -3-3. . . . . . . . . 
     . . -3-2-2-3. . . . . . . . 
     . . -3-2-1-1-2-3. . . . . . 
@@ -37,21 +38,21 @@ test('create one landmass', function(t) {
     . . . . -3-1-3. . . . . . . 
     . . . . . -3. . . . . . . . 
     `)
-    , created = new LandMass([
-      [ null, null, null, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null, null ],
-      [ null, null, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null ],
-      [ null, null, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -1 }, { t: 'sea', lvl: -1 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, null, null, null, null, null, null ],
-      [ null, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -1 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -3 }, null, null, null, null ],
-      [ { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -1 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 1 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -1 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, null, null, null ],
-      [ null, { t: 'sea', lvl: -2 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 1 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -1 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, null ],
-      [ null, null, { t: 'sea', lvl: -2 }, { t: 'shore', lvl: 0 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 3 }, { t: 'forest', lvl: 2 }, { t: 'forest', lvl: 1 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -1 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, null ],
-      [ null, { t: 'sea', lvl: -2 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 2 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 1 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -1 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 } ],
-      [ { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -2 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'forest', lvl: 1 }, { t: 'forest', lvl: 1 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -1 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, null, null ],
-      [ null, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -1 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -3 }, null, null, null, null ],
-      [ null, null, null, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -1 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, null, null, null, null, null ],
-      [ null, null, null, null, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -1 }, { t: 'shore', lvl: 0 }, { t: 'sea', lvl: -2 }, { t: 'sea', lvl: -3 }, null, null, null, null, null ],
-      [ null, null, null, null, { t: 'sea', lvl: -3 }, { t: 'sea', lvl: -1 }, { t: 'sea', lvl: -3 }, null, null, null, null, null, null, null ],
-      [ null, null, null, null, null, { t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null ]
+    , created = new LandMass(landtypes, [
+      [ null, null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null, null ],
+      [ null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null ],
+      [ null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null ],
+      [ null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null ],
+      [ { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null ],
+      [ null, { k: '-', t: 'sea', lvl: -2 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null ],
+      [ null, null, { k: '-', t: 'sea', lvl: -2 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 3 }, {k: 'f', t: 'forest', lvl: 2 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null ],
+      [ null, { k: '-', t: 'sea', lvl: -2 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 2 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 } ],
+      [ { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null ],
+      [ null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null ],
+      [ null, null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null ],
+      [ null, null, null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null ],
+      [ null, null, null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null, null ],
+      [ null, null, null, null, null, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null ]
     ])
 
   //console.log('XX', parsed)
@@ -68,6 +69,49 @@ test('create one landmass', function(t) {
   */
 
   t.deepEqual(parsed, created)
+  t.plan(1)
+  t.end()
+})
+
+test('create VS stringify one landmass', function(t) {
+
+  let landtypes = LandType.buildMap([
+      LandType.build({k:'-', name:'sea', pos: false, min: -3, max: 0}),
+      LandType.build({k:'s', name:'shore'}),
+      LandType.build({k:'f', name:'forest', min: 1, max: 3})
+    ])
+    , created = new LandMass(landtypes, [
+      [ null, null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null, null ],
+      [ null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null ],
+      [ null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null ],
+      [ null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null ],
+      [ { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null ],
+      [ null, { k: '-', t: 'sea', lvl: -2 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null ],
+      [ null, null, { k: '-', t: 'sea', lvl: -2 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 3 }, {k: 'f', t: 'forest', lvl: 2 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null ],
+      [ null, { k: '-', t: 'sea', lvl: -2 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 2 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 } ],
+      [ { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 'f', t: 'forest', lvl: 1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null ],
+      [ null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null ],
+      [ null, null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null ],
+      [ null, null, null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -1 }, {k: 's', t: 'shore', lvl: 0 }, { k: '-', t: 'sea', lvl: -2 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null ],
+      [ null, null, null, null, { k: '-', t: 'sea', lvl: -3 }, { k: '-', t: 'sea', lvl: -1 }, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null, null ],
+      [ null, null, null, null, null, { k: '-', t: 'sea', lvl: -3 }, null, null, null, null, null, null, null, null ]
+    ])
+    , expected = `    . . . -3-3. . . . . . . . . 
+    . . -3-2-2-3. . . . . . . . 
+    . . -3-2-1-1-2-3. . . . . . 
+    . -3-2-1s0s0s0-2-3-3. . . . 
+    -3-1s0s0f1f1f1s0-1-2-3. . . 
+    . -2s0s0f1f1f1f1s0s0-1-2-3. 
+    . . -2s0f1f3f2f1s0s0-1-2-3. 
+    . -2s0s0f1f2f1f1f1s0s0-1-2-3
+    -3-2s0s0f1f1s0s0s0-1-2-3. . 
+    . -3-2-1s0s0s0-2-3-3. . . . 
+    . . . -3-2-1s0-2-3. . . . . 
+    . . . . -3-1s0-2-3. . . . . 
+    . . . . -3-1-3. . . . . . . 
+    . . . . . -3. . . . . . . . `
+
+  t.deepEqual(created.stringify(4), expected)
   t.plan(1)
   t.end()
 })
