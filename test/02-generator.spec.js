@@ -42,6 +42,10 @@ test('test lvlMap', function(t) {
     , generator = new Generator(landtypes)
     , actual = generator.lvlMap()
     , expected = {
+      minlvl: -3,
+      maxlvl: 3,
+      deepest: { k: '-', t: 'sea', lvl: -3 },
+      highest: { k: 'f', t: 'forest', lvl: 3 },
       '-3': [ { k: '-', t: 'sea', lvl: -3 } ],
       '-2': [ { k: '-', t: 'sea', lvl: -2 } ],
       '-1': [ { k: '-', t: 'sea', lvl: -1 } ],
@@ -112,6 +116,7 @@ test('test vectorProba', function(t) {
   t.plan(4)
   t.end()
 })
+
 test('test createLandMass', function(t) {
 
   let landtypes = [

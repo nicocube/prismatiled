@@ -34,5 +34,7 @@
     "tap-summary": "^3.0.2",
     "tape": "^4.9.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "seedrandom": "^2.4.3"
+  }
 }
