@@ -117,7 +117,7 @@ test('test vectorProba', function(t) {
   t.end()
 })
 
-test('test createLandMass', function(t) {
+test.skip('test createLandMass', function(t) {
 
   let landtypes = [
       LandType.build({k:'-', name:'sea', pos: false, min: -3, max: -1}),

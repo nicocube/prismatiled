@@ -30,7 +30,7 @@
   "devDependencies": {
     "eslint": "^3.19.0",
     "istanbul": "^1.1.0-alpha.1",
-    "nodemon": "^1.17.2",
+    "nodemon": "^1.17.4",
     "tap-summary": "^3.0.2",
     "tape": "^4.9.0"
   },
