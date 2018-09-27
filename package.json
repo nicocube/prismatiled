@@ -8,7 +8,7 @@
     "test": "tape test/**/*.spec.js |tap-summary --no-progress",
     "autotest": "nodemon -e js,yml -x 'tape test/**/*.spec.js |tap-summary --no-progress'",
     "autolinttest": "nodemon -e js,yml -x 'npm run lint && tape test/**/*.spec.js |tap-summary --no-progress'",
-    "coverage": "istanbul cover tape test/**/*.spec.js",
+    "coverage": "nyc tape test/**/*.spec.js && nyc report --reporter=html",
     "lint": "eslint index.js lib/ test/",
     "autolint": "nodemon -x eslint index.js lib/ test/",
     "preversion": "npm test"
@@ -28,13 +28,13 @@
   },
   "homepage": "https://github.com/nicocube/prismatiled#readme",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "istanbul": "^1.1.0-alpha.1",
-    "nodemon": "^1.17.4",
-    "tap-summary": "^3.0.2",
-    "tape": "^4.9.0"
+    "eslint": "^5.6.0",
+    "nodemon": "^1.18.4",
+    "nyc": "^13.0.1",
+    "tap-summary": "^4.0.0",
+    "tape": "^4.9.1"
   },
   "dependencies": {
-    "seedrandom": "^2.4.3"
+    "seedrandom": "^2.4.4"
   }
 }

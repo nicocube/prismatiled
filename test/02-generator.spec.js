@@ -70,7 +70,7 @@ test('test vectorProba', function(t) {
     , generator = new Generator(landtypes)
     , testVectorProba = (p, l, expected) => {
       let actual = generator.vectorProba(p , l)
-//      console.log(actual)
+      // console.log(actual)
       t.deepEqual(actual, expected)
     }
   testVectorProba(4, 10, [ 0.09549150281252627,
