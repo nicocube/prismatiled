@@ -28,13 +28,13 @@
   },
   "homepage": "https://github.com/nicocube/prismatiled#readme",
   "devDependencies": {
-    "eslint": "^6.2.2",
-    "nodemon": "^1.19.1",
-    "nyc": "^14.1.1",
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.2",
+    "nyc": "^15.0.0",
     "tap-summary": "^4.0.0",
-    "tape": "^4.11.0"
+    "tape": "^4.13.0"
   },
   "dependencies": {
-    "seedrandom": "^3.0.3"
+    "seedrandom": "^3.0.5"
   }
 }
