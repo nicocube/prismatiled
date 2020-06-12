@@ -6,12 +6,10 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "tape test/**/*.spec.js |tap-summary --no-progress",
-    "autotest": "nodemon -e js,yml -x 'tape test/**/*.spec.js |tap-summary --no-progress'",
-    "autolinttest": "nodemon -e js,yml -x 'npm run lint && tape test/**/*.spec.js |tap-summary --no-progress'",
-    "coverage": "nyc tape test/**/*.spec.js && nyc report --reporter=html",
+    "autotest": "nodemon -e js,yml -x 'npm test'",
     "lint": "eslint index.js lib/ test/",
-    "autolint": "nodemon -x eslint index.js lib/ test/",
-    "preversion": "npm test"
+    "coverage": "nyc tape test/**/*.spec.js && nyc report --reporter=html",
+    "preversion": "npm test && npm outdated && npm audit"
   },
   "repository": {
     "type": "git",
@@ -21,18 +19,18 @@
     "tile",
     "map"
   ],
-  "author": "Nicolas Lochet",
+  "author": "Nicolas Lochet <nicolas.lochet@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/nicocube/prismatiled/issues"
   },
   "homepage": "https://github.com/nicocube/prismatiled#readme",
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "nodemon": "^2.0.2",
-    "nyc": "^15.0.0",
+    "eslint": "^7.2.0",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0",
     "tap-summary": "^4.0.0",
-    "tape": "^4.13.2"
+    "tape": "^5.0.1"
   },
   "dependencies": {
     "seedrandom": "^3.0.5"
