@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "npm run lint",
-    "test": "tape test/**/*.spec.js |tap-summary --no-progress",
+    "test": "tape test/**/*.spec.js |tap-spec-emoji",
     "autotest": "nodemon -e js,yml -x 'npm test'",
     "lint": "eslint index.js lib/ test/",
     "coverage": "nyc tape test/**/*.spec.js && nyc report --reporter=html",
@@ -29,10 +29,10 @@
     "eslint": "^7.15.0",
     "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
-    "tap-summary": "^4.0.0",
     "tape": "^5.0.1"
+    "tap-spec-emoji": "^6.1.2"
   },
   "dependencies": {
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
   }
 }
