@@ -29,10 +29,10 @@
     "eslint": "^7.15.0",
     "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
-    "tape": "^5.0.1"
+    "tape": "^5.0.1",
     "tap-spec-emoji": "^6.1.2"
   },
   "dependencies": {
-    "seedrandom": "^3.0.5",
+    "seedrandom": "^3.0.5"
   }
 }
