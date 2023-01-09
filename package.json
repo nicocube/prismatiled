@@ -27,7 +27,7 @@
   "homepage": "https://github.com/nicocube/prismatiled#readme",
   "devDependencies": {
     "eslint": "^7.15.0",
-    "nodemon": "^2.0.6",
+    "nodemon": "^2.0.20",
     "nyc": "^15.1.0",
     "tape": "^5.0.1",
     "tap-spec-emoji": "^6.1.2"
